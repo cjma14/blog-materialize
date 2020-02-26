@@ -73,3 +73,13 @@ footer.page-footer {
 	background-position: center;
 	background-size: cover;
 }
+
+/*Registro.html*/
+
+.registro-header {
+	height: 400px;
+}
+
+.registro-titulo {
+	margin-top: 80px;
+}
