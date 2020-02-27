@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>Blog en materialize</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<header>
+		<nav class="container">
+			<a href="index.html" class="brand-logo valign-wrapper z-depth-2">
+				<img class="responsive-img left" src="assets/img/logo.png" alt="Logo de Blog">
+			</a>
+			<ul class="right valign-wrapper">
+				<li><a href="localizacion.html">Localización</a></li>
+				<li><a href="#">Sobre Nosotros</a></li>
+				<li><a href="#">Contacto</a></li>
+				<li><a class="btn" href="registro.html">Registro</a></li>
+			</ul>
+		</nav>
+		<section class="header-main-pic z-depth-2"></section>
+	</header>
+	<section class="container localizacion-titulo">
+		<div class="row">
+			<div class="col s12">
+				<h1 class="center-align">Saber mi posición actual</h1>
+			</div>
+		</div>
+	</section>
+	<main class="container">
+		<div class="section center-align">
+			<div class="row">
+				<div class="col m12 s12">
+					<button onclick="findMe()" class="btn-floating btn-large waves-effect waves-light light-blue lighten-1"><i class="material-icons right">location_on</i></button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col m12 s12">
+					<div id="map" hidden=""></div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="page-footer"></footer>
+	
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script async defer
+  		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAptEXJMzPLf9yOpD4cHEseQL6YyBJr8oc&callback=initMap">
+	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript">
+    	function findMe(){
+    		var output = document.getElementById('map');
+
+    		if(navigator.geolocation){
+    			output.innerHTML = "<p>Tu navegador soporta Geolocalización</p>";
+    		}else{
+    			output.innerHTML = "<p>Tu navegador no soporta Geolocalización</p>";
+    		}
+
+    		function localizacion(posicion){
+    			var latitude = posicion.coords.latitude;
+    			var longitude = posicion.coords.longitude;
+
+    			$('#map').show();
+
+    			var coord = {lat: latitude, lng: longitude}
+    			var map = new google.maps.Map(document.getElementById('map'), {
+			          center: coord,
+			          zoom: 10
+			     });
+
+    			// output.innerHTML = `<p>Latitud: ${latitude} <br>Longitud: ${longitude}</p>`;
+    		}
+
+    		function error(){
+    			output.innerHTML = "<p>No se puedo obtener su localización</p>";
+    		}
+
+    		navigator.geolocation.getCurrentPosition(localizacion,error);
+
+    	}
+    </script>
+</body>
+</html>
